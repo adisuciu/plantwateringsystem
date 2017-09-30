@@ -30,11 +30,17 @@
 #define DEBUG
 #include <mydebug.h>
 
-// Update these with values suitable for your network.
+#include "secret.h" 
+// include secret.h or define ssid password mqttserver mqttserverpassword
+/*
+const char* ssid = ""
+const char* password = ""
+const char* mqtt_server = ""
+const char* pimqttpass = ""
+*/
 
-const char* ssid = "UPC0052369";
-const char* password = "DPZZLGSE";
-const char* mqtt_server = "192.168.0.15";
+
+// Update these with values suitable for your network.
 
 const char* statusTopic = "plantWaterSystem/status";
 const char* readSensorsTopic = "plantWaterSystem/readSensors";
@@ -205,7 +211,7 @@ void reconnect() {
   while (!client.connected()) {
     debug("Attempting MQTT connection...");
     // Attempt to connect
-    if (client.connect("wateringSystemESP","pi","pimqttpass",onlineTopic,0,1,"offline")) {
+    if (client.connect("wateringSystemESP","pi",pimqttpass,onlineTopic,0,1,"offline")) {
       debug("connected");
       // Once connected, publish an announcement...
       client.publish(onlineTopic, "online",true);
